@@ -1,0 +1,76 @@
+{
+  "_comment": "검증용 테스트 세트. 허용어·변형 음절 매핑을 정한 뒤 별도로 작성했고, 허용어 목록에 넣지 않은 정상어와 정규화로 오탐이 날 수 있는 문장을 일부러 포함한다. 형식은 content-filter-cases.json과 같다.",
+  "cases": [
+    { "label": "profanity", "group": "목록 그대로", "text": "닥쳐 진짜" },
+    { "label": "profanity", "group": "목록 그대로", "text": "또라이 아니야" },
+    { "label": "profanity", "group": "목록 그대로", "text": "염병하네 진짜" },
+    { "label": "profanity", "group": "목록 그대로", "text": "엿먹어라" },
+
+    { "label": "profanity", "group": "구분자 삽입", "text": "닥.쳐" },
+    { "label": "profanity", "group": "구분자 삽입", "text": "또 라 이" },
+    { "label": "profanity", "group": "구분자 삽입", "text": "개 자 식" },
+    { "label": "profanity", "group": "구분자 삽입", "text": "등-신아" },
+
+    { "label": "profanity", "group": "철자·숫자 변형", "text": "씨2발 왜 안 와" },
+    { "label": "profanity", "group": "철자·숫자 변형", "text": "병2신 같네" },
+    { "label": "profanity", "group": "철자·숫자 변형", "text": "개새1끼" },
+    { "label": "profanity", "group": "철자·숫자 변형", "text": "존2나 비싸" },
+    { "label": "profanity", "group": "철자·숫자 변형", "text": "지1랄하네" },
+    { "label": "profanity", "group": "철자·숫자 변형", "text": "꺼1져" },
+    { "label": "profanity", "group": "철자·숫자 변형", "text": "시빨롬" },
+    { "label": "profanity", "group": "철자·숫자 변형", "text": "븅쉰" },
+    { "label": "profanity", "group": "철자·숫자 변형", "text": "개섀끼" },
+    { "label": "profanity", "group": "철자·숫자 변형", "text": "미친뇬" },
+    { "label": "profanity", "group": "철자·숫자 변형", "text": "좃같네" },
+    { "label": "profanity", "group": "철자·숫자 변형", "text": "씨부랄" },
+    { "label": "profanity", "group": "철자·숫자 변형", "text": "ㅆ1발" },
+    { "label": "profanity", "group": "철자·숫자 변형", "text": "개쉑" },
+
+    { "label": "profanity", "group": "초성", "text": "ㅁㅊ 놈아" },
+    { "label": "profanity", "group": "초성", "text": "ㅄ 같네" },
+
+    { "label": "clean", "group": "자모 일상 표현", "text": "ㅋㅋ 넵" },
+    { "label": "clean", "group": "자모 일상 표현", "text": "ㅎㅎ 감사해요" },
+    { "label": "clean", "group": "자모 일상 표현", "text": "ㅇㅋ 내일 봬요" },
+    { "label": "clean", "group": "자모 일상 표현", "text": "ㅠㅠ 너무 비싸요" },
+
+    { "label": "clean", "group": "비슷한 글자 정상어", "text": "병아리 그림 액자도 있어요" },
+    { "label": "clean", "group": "비슷한 글자 정상어", "text": "존재감 있는 소파라 조심해 주세요" },
+    { "label": "clean", "group": "비슷한 글자 정상어", "text": "씨디 플레이어도 옮겨 주세요" },
+    { "label": "clean", "group": "비슷한 글자 정상어", "text": "개미가 나와서 방역도 했어요" },
+    { "label": "clean", "group": "비슷한 글자 정상어", "text": "개수대 청소도 해 주시나요" },
+    { "label": "clean", "group": "비슷한 글자 정상어", "text": "지하 주차장 이용 가능해요" },
+    { "label": "clean", "group": "비슷한 글자 정상어", "text": "등산 장비가 많아요" },
+    { "label": "clean", "group": "비슷한 글자 정상어", "text": "새끼손가락을 다쳐서 짐을 못 들어요" },
+    { "label": "clean", "group": "비슷한 글자 정상어", "text": "졸업 앨범 박스는 따로 있어요" },
+    { "label": "clean", "group": "비슷한 글자 정상어", "text": "졸려서 답장이 늦었네요" },
+    { "label": "clean", "group": "비슷한 글자 정상어", "text": "닥트 청소도 같이 되나요" },
+
+    { "label": "clean", "group": "정규화 위험 정상어", "text": "아저씨 빨리 와 주세요" },
+    { "label": "clean", "group": "정규화 위험 정상어", "text": "빨래 건조대도 챙겨 주세요" },
+    { "label": "clean", "group": "정규화 위험 정상어", "text": "세탁기 분리 해 주세요" },
+    { "label": "clean", "group": "정규화 위험 정상어", "text": "세 시까지 가능할까요" },
+    { "label": "clean", "group": "정규화 위험 정상어", "text": "하루 세끼 도시락 드릴게요" },
+    { "label": "clean", "group": "정규화 위험 정상어", "text": "문턱 넘어가면 바로 거실이에요" },
+    { "label": "clean", "group": "정규화 위험 정상어", "text": "넘 감사해요" },
+    { "label": "clean", "group": "정규화 위험 정상어", "text": "쉰 살 넘은 장롱이라 조심해 주세요" },
+
+    { "label": "clean", "group": "일반 대화", "text": "견적서 다시 보내 주실 수 있나요" },
+    { "label": "clean", "group": "일반 대화", "text": "피아노 운반도 되나요" },
+    { "label": "clean", "group": "일반 대화", "text": "현관 앞에 박스 두고 가셔도 돼요" },
+    { "label": "clean", "group": "일반 대화", "text": "에어컨 철거도 부탁드려요" },
+
+    { "label": "clean", "group": "숫자 포함 정상", "text": "박스 20개 준비했어요" },
+    { "label": "clean", "group": "숫자 포함 정상", "text": "2층 201호예요" },
+    { "label": "clean", "group": "숫자 포함 정상", "text": "에어컨2대 있어요" },
+    { "label": "clean", "group": "숫자 포함 정상", "text": "냉장고 1대 세탁기 1대예요" },
+    { "label": "clean", "group": "숫자 포함 정상", "text": "도착 30분 전에 연락 주세요" },
+
+    { "label": "phone", "group": "일반 형식", "text": "제 번호는 010-9876-5432예요" },
+    { "label": "phone", "group": "일반 형식", "text": "01098765432" },
+    { "label": "phone", "group": "우회 입력", "text": "공일공 구팔칠육 오사삼이" },
+    { "label": "phone", "group": "우회 입력", "text": "０１０ ９８７６ ５４３２" },
+    { "label": "account", "group": "일반 형식", "text": "123456-01-234567 로 보내 주세요" },
+    { "label": "account", "group": "일반 형식", "text": "110-123-456789 입니다" }
+  ]
+}
