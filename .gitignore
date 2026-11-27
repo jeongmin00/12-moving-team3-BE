@@ -28,6 +28,7 @@ generated/
 
 # seed scripts runtime state
 scripts/.seed-community-manifest.json
+scripts/eval/.embedding-cache.json
 
 # archives
 *.zip
