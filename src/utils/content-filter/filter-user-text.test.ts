@@ -73,7 +73,10 @@ describe('filterUserText profanity normalization', () => {
     assert.equal(result.decision.action, 'mask');
     assert.equal(result.rawContent, content);
     assert.equal(result.maskedContent, personalInfoOnly.maskedContent);
-    assert.match(result.maskedContent, /^신발장 2개랑 시발점 근처 \[전화번호\]/);
+    assert.match(
+      result.maskedContent,
+      /^신발장 2개랑 시발점 근처 \[전화번호\]/
+    );
   });
 
   it('숫자를 끼운 욕설은 정규화로 block', async () => {

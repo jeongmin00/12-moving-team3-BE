@@ -36,7 +36,9 @@ const VARIANT_SYLLABLE_PATTERN: RegExp | null =
 
 /** 허용어 구간을 지운 비교용 문자열. 원문은 바꾸지 않는다. */
 export const removeAllowlistedSpans = (text: string): string =>
-  ALLOWLIST_PATTERN ? text.replace(ALLOWLIST_PATTERN, ALLOWLIST_PLACEHOLDER) : text;
+  ALLOWLIST_PATTERN
+    ? text.replace(ALLOWLIST_PATTERN, ALLOWLIST_PLACEHOLDER)
+    : text;
 
 /**
  * 금칙어 비교용 정규화 사본. 원문·마스킹 위치 계산에는 쓰지 않는다.

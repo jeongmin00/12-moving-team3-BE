@@ -5,11 +5,12 @@
  * 금칙어 목록에도 같은 매핑을 적용해서 비교하므로, 목록에 변형 표기가 있어도 결과는 같다.
  * 일상어도 함께 바뀌므로(예: '빨리' → '발리') 정규화 사본은 구분자 없이 붙어 있는 경우만 비교한다.
  */
-export const PROFANITY_VARIANT_SYLLABLE_MAP: Readonly<Record<string, string>> = {
-  빨: '발',
-  쉐: '새',
-  세: '새',
-  쉰: '신',
-  씬: '신',
-  넘: '놈',
-};
+export const PROFANITY_VARIANT_SYLLABLE_MAP: Readonly<Record<string, string>> =
+  {
+    빨: '발',
+    쉐: '새',
+    세: '새',
+    쉰: '신',
+    씬: '신',
+    넘: '놈',
+  };

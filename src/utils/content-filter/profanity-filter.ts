@@ -95,13 +95,16 @@ export const containsExactProfanity = (
   const normalizedText = normalizeForProfanityMatch(comparable);
   return targets.some((word) => {
     const normalizedWord = normalizeForProfanityMatch(word);
-    return normalizedWord.length >= 2 && normalizedText.includes(normalizedWord);
+    return (
+      normalizedWord.length >= 2 && normalizedText.includes(normalizedWord)
+    );
   });
 };
 
 /** 유사도 검사 후보 토큰. 허용어 구간을 지운 뒤 뽑고, 자모-only·한 글자는 패턴에서 제외된다. */
 export const collectSimilarityCandidates = (text: string): string[] => {
-  const matches = removeAllowlistedSpans(text).match(SIMILARITY_TOKEN_PATTERN) ?? [];
+  const matches =
+    removeAllowlistedSpans(text).match(SIMILARITY_TOKEN_PATTERN) ?? [];
   const unique = uniqueNonEmpty(matches);
 
   return unique.slice(0, BANNED_WORD_MAX_SIMILARITY_CANDIDATES);

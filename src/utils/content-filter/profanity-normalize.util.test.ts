@@ -17,7 +17,10 @@ describe('removeAllowlistedSpans', () => {
   });
 
   it('허용어가 없는 문장은 그대로 둔다', () => {
-    assert.equal(removeAllowlistedSpans('토요일 오전 가능할까요'), '토요일 오전 가능할까요');
+    assert.equal(
+      removeAllowlistedSpans('토요일 오전 가능할까요'),
+      '토요일 오전 가능할까요'
+    );
   });
 });
 
