@@ -69,6 +69,15 @@ if (casesArgIndex >= 0 && !casesArg) {
 }
 const casesPath = casesArg ? path.resolve(process.cwd(), casesArg) : defaultCasesPath;
 const cases: Case[] = JSON.parse(fs.readFileSync(casesPath, 'utf8')).cases;
+const thresholdsArgIndex = process.argv.indexOf('--thresholds');
+const extraThresholds: number[] =
+  thresholdsArgIndex >= 0
+    ? (process.argv[thresholdsArgIndex + 1] ?? '').split(',').map(Number)
+    : [];
+if (extraThresholds.some((t) => !Number.isFinite(t) || t <= 0 || t > 1)) {
+  console.error('--thresholds 는 0~1 사이 값을 쉼표로 구분해 지정하세요. 예: --thresholds 0.60,0.65');
+  process.exit(1);
+}
 const resultFileName =
   casesPath === defaultCasesPath
     ? 'content-filter-eval-result.md'
@@ -228,6 +237,13 @@ const main = async () => {
     { key: 'C', name: '정확 일치 + 유사도 0.55 (자모 예외 없음)', fn: (t) => legacyExact(t) || simHit(t, 0.55, 'legacy'), needsKey: true },
     { key: 'D', name: '정확 일치 + 유사도 0.55 (자모 예외, 종료 시점)', fn: (t) => legacyExact(t) || simHit(t, 0.55, 'preAllowlist'), needsKey: true },
     { key: 'E', name: 'D + 허용어 + 정규화 (개선 후)', fn: (t) => currentExact(t) || simHit(t, 0.55, 'current'), needsKey: true },
+    // --thresholds 0.60,0.65 → E 규칙에 임계값만 바꾼 조건을 추가한다.
+    ...extraThresholds.map((threshold) => ({
+      key: `E@${threshold.toFixed(2)}`,
+      name: `E 규칙 + 유사도 ${threshold.toFixed(2)}`,
+      fn: (t: string) => currentExact(t) || simHit(t, threshold, 'current'),
+      needsKey: true,
+    })),
   ];
 
   const lines: string[] = [];
