@@ -11,6 +11,10 @@ import type {
   SimilarBannedWord,
 } from '../../repositories/banned-word.repository';
 import { embed } from '../embeddings.util';
+import {
+  normalizeForProfanityMatch,
+  removeAllowlistedSpans,
+} from './profanity-normalize.util';
 import type { FilterReason, FilterUserTextDeps } from './types';
 
 /** Embedding 유사도 후보 토큰. 완성형 한글·영숫자만 (자모-only ㅋㅋ·ㅎㅎ 등 제외). */
@@ -64,25 +68,40 @@ const resolveThreshold = (deps?: FilterUserTextDeps): number => {
   return DEFAULT_BANNED_WORD_SIMILARITY_THRESHOLD;
 };
 
-/** 금칙어 Exact 매칭. 원문 포함 + 글자 사이 구분자 변형. */
+/**
+ * 금칙어 Exact 매칭. 허용어 구간을 지운 사본으로 검사한다.
+ * 1) 글자 사이 구분자 변형 허용 매칭
+ * 2) 정규화 사본(한글 사이 숫자·영문 제거, 변형 음절 매핑)끼리 붙어 있는 경우만 비교
+ *    — 정규화가 일상어도 바꾸므로('빨리' → '발리') 구분자를 건너 이어 붙이지 않는다.
+ */
 export const containsExactProfanity = (
   text: string,
   words: ActiveBannedWord[]
 ): boolean => {
+  const comparable = removeAllowlistedSpans(text);
   const targets = uniqueNonEmpty(
     words.flatMap((item) => [item.word, item.normalizedWord])
   );
 
-  return targets.some((word) => {
+  const hasFlexibleMatch = targets.some((word) => {
     const pattern = toFlexibleProfanityPattern(word);
     pattern.lastIndex = 0;
-    return pattern.test(text);
+    return pattern.test(comparable);
+  });
+  if (hasFlexibleMatch) {
+    return true;
+  }
+
+  const normalizedText = normalizeForProfanityMatch(comparable);
+  return targets.some((word) => {
+    const normalizedWord = normalizeForProfanityMatch(word);
+    return normalizedWord.length >= 2 && normalizedText.includes(normalizedWord);
   });
 };
 
-/** 유사도 검사 후보 토큰. 자모-only·한 글자는 패턴에서 제외된다. */
+/** 유사도 검사 후보 토큰. 허용어 구간을 지운 뒤 뽑고, 자모-only·한 글자는 패턴에서 제외된다. */
 export const collectSimilarityCandidates = (text: string): string[] => {
-  const matches = text.match(SIMILARITY_TOKEN_PATTERN) ?? [];
+  const matches = removeAllowlistedSpans(text).match(SIMILARITY_TOKEN_PATTERN) ?? [];
   const unique = uniqueNonEmpty(matches);
 
   return unique.slice(0, BANNED_WORD_MAX_SIMILARITY_CANDIDATES);
